@@ -1,0 +1,40 @@
+.profile__subtitle {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  margin: 0;
+  margin-top: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* @media screen and (max-width: 1024px) {
+  .profile__subtitle {
+    font-size: 16;
+    line-height: 1.2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile__subtitle {
+    font-size: 15;
+  }
+} */
+
+@media screen and (max-width: 1024px) {
+  .profile__subtitle {
+    font-size: 3vw;
+    line-height: 1.2;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__subtitle {
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 7px;
+  }
+}

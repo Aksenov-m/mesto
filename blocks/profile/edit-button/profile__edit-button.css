@@ -1,0 +1,30 @@
+.profile__edit-button {
+  background-image: url('../../../images/Profile_Button.svg');
+  display: flex;
+  align-self: flex-start;
+  background-size: cover;
+  background-size: 10px 10px;
+  /* position: absolute;
+  top: 7px;
+  right: 0; */
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+  margin-top: 37px;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__edit-button {
+    max-width: 18px;
+    max-height: 18px;
+    margin-left: 10px;
+    margin-top: 7px;
+  }
+}

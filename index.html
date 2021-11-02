@@ -10,11 +10,31 @@
   <body class="page">
     <div class="page__container">
       <header class="header section page__header">
-        <img class="header__logo" src="./images/header-logo.svg" alt="Логотип места России.">
+        <img
+          class="header__logo"
+          src="./images/header-logo.svg"
+          alt="Логотип места России."
+        />
       </header>
       <main class="content page__content">
-        <section class="profile section content__section"></section>
-        <section class="elements section content__section" aria-label="Карточки мест"></section>
+        <section class="profile section content__section">
+          <div class="profile__content">
+            <img
+              class="profile__avatar"
+              src="./images/Profile_Avatar.jpg"
+              alt="Аватар."/>
+            <div class="profile__info">
+              <h1 class="section__title profile__title">Жак-Ив Кусто</h1>
+              <p class="profile__subtitle">Исследователь океана</p>
+            </div>
+            <a class="profile__edit-button" href="#"></a>
+          </div>
+          <button class="profile__add-button" type="button"></button>
+        </section>
+        <section
+          class="elements section content__section"
+          aria-label="Карточки мест"
+        ></section>
       </main>
       <footer class="footer section page__footer"></footer>
     </div>
