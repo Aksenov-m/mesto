@@ -1,0 +1,11 @@
+.button__like-icon {
+  outline: none;
+  width: 22px;
+  height: 19px;
+  border: none;
+  background-image: url(../../../images/like.jpg);
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  padding: 0;
+}
