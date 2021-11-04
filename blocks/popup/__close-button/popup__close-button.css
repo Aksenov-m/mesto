@@ -12,7 +12,6 @@
 
 .popup__close-button:before {
   position: absolute;
-  border: 2px solid #ffffff;
   background-color: #ffffff;
   content: '';
   height: 34px;
