@@ -1,6 +1,4 @@
 .profile__info {
-  /* min-width: 335px;
-  width: 100%; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;

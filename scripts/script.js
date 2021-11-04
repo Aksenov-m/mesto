@@ -22,17 +22,13 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-// Находим форму в DOM
 let formElement = document.querySelector('.popup__info');
-// Находим поля формы в DOM
 let nameInput = formElement.querySelector('.popup__name');
 let jobInput = formElement.querySelector('.popup__job');
 
 let formName = document.querySelector('.profile__name');
 let formJob = document.querySelector('.profile__job');
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
 function formSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                                                 // Так мы можем определить свою логику отправки.
@@ -41,14 +37,9 @@ function formSubmitHandler (evt) {
     // Получите значение полей jobInput и nameInput из свойства value
     formName.textContent = nameInput.value;
     formJob.textContent = jobInput.value;
-
-    // Выберите элементы, куда должны быть вставлены значения полей
-
-    // Вставьте новые значения с помощью textContent
     closePopup();
 }
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+
 formElement.addEventListener('submit', formSubmitHandler);
 
 function openformElement() {
@@ -57,5 +48,3 @@ function openformElement() {
   }
 navButton.addEventListener('click', openformElement);
 
-// console.log(formName.textContent);
-// console.log(nameInput.value);

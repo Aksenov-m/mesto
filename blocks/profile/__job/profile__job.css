@@ -11,19 +11,6 @@
   overflow: hidden;
 }
 
-/* @media screen and (max-width: 1024px) {
-  .profile__subtitle {
-    font-size: 16;
-    line-height: 1.2;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .profile__subtitle {
-    font-size: 15;
-  }
-} */
-
 @media screen and (max-width: 1024px) {
   .profile__job {
     font-size: 3vw;

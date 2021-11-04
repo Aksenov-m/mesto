@@ -1,12 +1,12 @@
 .card__flex {
-display: flex;
-flex-direction: row;
-align-items: flex-end;
-justify-content: space-between;
-margin: 0;
-padding-left: 21px;
-padding-right: 19px;
-padding-bottom: 26px;
-width: 100%;
-box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0;
+  padding-left: 21px;
+  padding-right: 19px;
+  padding-bottom: 26px;
+  width: 100%;
+  box-sizing: border-box;
 }
