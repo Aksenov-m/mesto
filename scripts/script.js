@@ -5,26 +5,21 @@ const popupOpened = document.querySelector('popup_opened');
 const navButton = document.querySelector('.profile__edit-button');
 
 function openPopup() {
-  popupElement.classList.remove('popup_opened');
+  popupElement.classList.add('popup_opened');
+  openformElement();
 }
 
 function closePopup() {
-  popupElement.classList.add('popup_opened');
+  popupElement.classList.remove('popup_opened');
 }
 
 navButton.addEventListener('click', openPopup)
 
 closeButton.addEventListener('click', closePopup)
 
-document.addEventListener('keyup', (event) => {
-  if (event.keyCode === 27) {
-      closePopup();
-  }
-});
-
 let formElement = document.querySelector('.popup__info');
-let nameInput = formElement.querySelector('.popup__name');
-let jobInput = formElement.querySelector('.popup__job');
+let nameInput = formElement.querySelector('.popup__input_string_name');
+let jobInput = formElement.querySelector('.popup__input_string_job');
 
 let formName = document.querySelector('.profile__name');
 let formJob = document.querySelector('.profile__job');

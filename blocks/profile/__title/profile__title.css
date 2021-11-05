@@ -1,4 +1,4 @@
-.section__title {
+.profile__title {
   font-style: normal;
   font-weight: 500;
   font-size: 42px;
@@ -10,4 +10,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 295px;
 }

@@ -1,29 +1,4 @@
 .page__header {
   width: 100%;
   margin: 0 auto;
-  padding-bottom: 41px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #545454;
-}
-
-@media screen and (max-width: 1024px) {
-  .page__header {
-    padding: 0 48px;
-    padding-bottom: 41px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .page__header {
-    padding: 0 24px;
-    padding-bottom: 41px;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .page__header {
-    padding: 0 27px;
-    padding-bottom: 32px;
-  }
 }

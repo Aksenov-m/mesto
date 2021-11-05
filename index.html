@@ -25,12 +25,12 @@
               alt="Аватар."
             />
             <div class="profile__info">
-              <h1 class="section__title profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__title profile__name">Жак-Ив Кусто</h1>
               <p class="profile__job">Исследователь океана</p>
             </div>
-            <a class="profile__edit-button link" href="#"></a>
+            <button class="profile__edit-button link" type="button" aria-label="popupOpened"></button>
           </div>
-          <button class="profile__add-button link" type="button"></button>
+          <button class="profile__add-button link" type="button" aria-label="addCard"></button>
         </section>
         <section
           class="cards section content__section"
@@ -42,7 +42,7 @@
               alt="Развалены храма."/>
             <div class="card__flex">
               <h2 class="card__title">Карачаевск</h2>
-              <button class="card__like-icon"></button>
+              <button class="card__like-icon" type="button" aria-label="like"></button>
             </div>
           </article>
           <article class="card cards__item">
@@ -52,7 +52,7 @@
               alt="Эльбрус."/>
             <div class="card__flex">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__like-icon"></button>
+              <button class="card__like-icon" type="button" aria-label="like"></button>
             </div>
           </article>
           <article class="card cards__item">
@@ -62,7 +62,7 @@
               alt="Горы Домбайя."/>
             <div class="card__flex">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__like-icon"></button>
+              <button class="card__like-icon" type="button" aria-label="like"></button>
             </div>
           </article>
           <article class="card cards__item">
@@ -72,7 +72,7 @@
               alt="Эльбрус."/>
             <div class="card__flex">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__like-icon"></button>
+              <button class="card__like-icon" type="button" aria-label="like"></button>
             </div>
           </article>
           <article class="card cards__item">
@@ -82,7 +82,7 @@
               alt="Горы Домбайя."/>
             <div class="card__flex">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__like-icon"></button>
+              <button class="card__like-icon" type="button" aria-label="like"></button>
             </div>
           </article>
           <article class="card cards__item">
@@ -92,7 +92,7 @@
               alt="Развалены храма."/>
             <div class="card__flex">
               <h2 class="card__title">Карачаево-Черкес</h2>
-              <button class="card__like-icon"></button>
+              <button class="card__like-icon" type="button" aria-label="like"></button>
             </div>
           </article>
         </section>
@@ -100,16 +100,16 @@
       <footer class="footer section page__footer">
         <p class="footer__copyright"> &copy; 2021 Mesto Russia</p>
       </footer>
-      <div class="popup popup_opened">
-        <section class="popup__container">
-          <button class="popup__close-button link" type="button"></button>
+      <div class="popup">
+        <div class="popup__container">
+          <button class="popup__close-button link" type="button" aria-label="closePopup"></button>
           <label class="popup__title">Редактировать профиль</label>
-          <form class="popup__info">
-            <input name="userName" class="popup__input popup__name" type="text" value="">
-            <input name="userJob" class="popup__input popup__job" type="text" value="">
+          <form class="popup__info" name="popupInfo">
+            <input name="userName" class="popup__input popup__input_string_name" type="text" value="" placeholder="Имя" required autocomplete="off">
+            <input name="userJob" class="popup__input popup__input_string_job" type="text" value="" placeholder="Работа" required autocomplete="off">
             <button type="submit" class="popup__button">Сохранить</button>
           </form>
-        </section>
+        </div>
       </div>
     </div>
     <script src="./scripts/script.js"></script>
