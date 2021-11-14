@@ -15,6 +15,11 @@ const navButton = document.querySelector('.profile__edit-button');
 // кнопка открытия 2 попапа
 const addButton = document.querySelector('.profile__add-button');
 
+// секция с карточками
+const cards = document.querySelector('.cards');
+// получаем элемент теиплейт
+const template = document.querySelector('#card');
+
 let formElement = document.querySelector('.popup__info');
 let nameInput = formElement.querySelector('.popup__input_string_name');
 let jobInput = formElement.querySelector('.popup__input_string_job');
@@ -63,3 +68,42 @@ closeButtonEdit.addEventListener('click', () => closePopup(popupElementEdit));
 
 // слушатель для кнопки закрытия попапа 2 X
 closeButtonAdd.addEventListener("click", () => closePopup(popupElementAdd));
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+const result = initialCards.forEach(item => {
+  return createTaskDomNode(item.name, item.link);
+});
+
+function createTaskDomNode(name, link) {
+	const taskTemplate = template.content.querySelector('.card').cloneNode(true);
+  taskTemplate.querySelector('.card__title').textContent = name;
+  taskTemplate.querySelector('.card__image').src = link;
+  taskTemplate.querySelector('.card__image').alt = name;
+  cards.append(taskTemplate);
+}
