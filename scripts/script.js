@@ -1,8 +1,19 @@
-const popupElement = document.querySelector('.popup');
+// const popupElement = document.querySelector('.popup');
 
-const closeButton = popupElement.querySelector('.popup__close-button');
-const popupOpened = document.querySelector('popup_opened');
+// const popupOpened = popupElement.querySelector('popup_opened');
+
+// 1 попап
+const popupElementEdit = document.querySelector('.popup_type_edit');
+// 2 попап
+const popupElementAdd = document.querySelector('.popup_type_add');
+// кнопка закрытия 1 попапа
+const closeButtonEdit = popupElementEdit.querySelector('.popup__close-button');
+// кнопка закрытия 2 попапа
+const closeButtonAdd = popupElementAdd.querySelector('.popup__close-button');
+// кнопка открытия 1 попапа
 const navButton = document.querySelector('.profile__edit-button');
+// кнопка открытия 2 попапа
+const addButton = document.querySelector('.profile__add-button');
 
 let formElement = document.querySelector('.popup__info');
 let nameInput = formElement.querySelector('.popup__input_string_name');
@@ -19,7 +30,7 @@ function formSubmitHandler (evt) {
     // Получите значение полей jobInput и nameInput из свойства value
     formName.textContent = nameInput.value;
     formJob.textContent = jobInput.value;
-    closePopup();
+    closePopup(popupElementEdit);
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
@@ -30,15 +41,25 @@ function openformElement() {
   }
 navButton.addEventListener('click', openformElement);
 
-function openPopup() {
+// функция для открытия попапа
+function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   openformElement();
 }
 
-function closePopup() {
+// функция для закрытия попапа
+function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
 }
 
-navButton.addEventListener('click', openPopup);
+// слушатель для кнопки редактирования
+navButton.addEventListener("click", () => openPopup(popupElementEdit));
 
-closeButton.addEventListener('click', closePopup);
+// слушатель для кнопки добавления
+addButton.addEventListener("click", () => openPopup(popupElementAdd));
+
+// слушатель для кнопки закрытия попапа 1 X
+closeButtonEdit.addEventListener('click', () => closePopup(popupElementEdit));
+
+// слушатель для кнопки закрытия попапа 2 X
+closeButtonAdd.addEventListener("click", () => closePopup(popupElementAdd));

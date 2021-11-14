@@ -100,7 +100,7 @@
       <footer class="footer section page__footer">
         <p class="footer__copyright"> &copy; 2021 Mesto Russia</p>
       </footer>
-      <div class="popup">
+      <div class="popup popup_type_edit">
         <div class="popup__container">
           <button class="popup__close-button link" type="button" aria-label="closePopup"></button>
           <label class="popup__title">Редактировать профиль</label>
@@ -108,6 +108,17 @@
             <input name="userName" class="popup__input popup__input_string_name" type="text" value="" placeholder="Имя" required autocomplete="off">
             <input name="userJob" class="popup__input popup__input_string_job" type="text" value="" placeholder="Работа" required autocomplete="off">
             <button type="submit" class="popup__button">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_add">
+        <div class="popup__container">
+          <button class="popup__close-button link" type="button" aria-label="closePopup"></button>
+          <label class="popup__title">Новое место</label>
+          <form class="popup__info" name="popupImage">
+            <input name="imageName" class="popup__input popup__input_string_Name" type="text" value="" placeholder="Название" required autocomplete="off">
+            <input name="imagelink" class="popup__input popup__input_string_link" type="text" value="" placeholder="Ссылка на картинку" required autocomplete="off">
+            <button type="submit" class="popup__button">Создать</button>
           </form>
         </div>
       </div>
