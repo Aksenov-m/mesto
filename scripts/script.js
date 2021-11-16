@@ -25,7 +25,15 @@ const navButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 // секция с карточками
-const cards = document.querySelector('.cards');
+const card = document.querySelector('.cards');
+
+const imageForm = document.querySelector('[name=popupImage]')
+
+// попап 2 с картинками-названия фото
+const imageNameInput = imageForm.querySelector('.popup__input_string_title');
+
+// попап 2 с картинками-ссылки на фото
+const imageLinkInput = imageForm.querySelector('.popup__input_string_link');
 
 let formElement = document.querySelector('.popup__info');
 let nameInput = formElement.querySelector('.popup__input_string_name');
@@ -107,18 +115,23 @@ const initialCards = [
 ];
 
 const result = initialCards.forEach(item => {
-  createTaskDomNode(item.name, item.link);
+  addImageCard(item.name, item.link);
 });
+
+function addImageCard(name, link) {
+  const cardElement = createTaskDomNode(name, link);
+  card.prepend(cardElement);
+};
 
 function createTaskDomNode(name, link) {
 	const taskTemplate = template.content.querySelector('.card').cloneNode(true);
   taskTemplate.querySelector('.card__title').textContent = name;
   taskTemplate.querySelector('.card__image').src = link;
   taskTemplate.querySelector('.card__image').alt = name;
-  cards.append(taskTemplate);
   addLike(taskTemplate);
   openPopupImage(taskTemplate);
-}
+  return taskTemplate;
+};
 
 function openPopupImage(data) {
   const cardImage = data.querySelector('.card__image');
@@ -129,15 +142,27 @@ function openPopupImage(data) {
   popupTitle.textContent = cardTitle.textContent;
   popupTitle.alt = cardTitle.textContent;
   })
-}
-
+};
 
 // слушатель для кнопки закрытия попапа 3 X
 closeButtonImage.addEventListener("click", () => closePopup(popupElementImage));
 
+//добавления лайка
 function addLike(data) {
   const likeButton = data.querySelector('.card__like-icon');
   likeButton.addEventListener('click', function (evt) {
   evt.target.classList.toggle('card__like-icon_active');
   })
-}
+};
+// форма добавления карточек
+const submitImageFormHandler = (evt) => {
+  evt.preventDefault();
+  const inputImageName = imageNameInput.value;
+  const inputImageLink = imageLinkInput.value;
+  addImageCard(inputImageName, inputImageLink);
+  closePopup(popupElementAdd);
+  imageNameInput.value = '';
+  imageLinkInput.value = '';
+};
+
+imageForm.addEventListener('submit', submitImageFormHandler);
