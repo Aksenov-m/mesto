@@ -27,13 +27,11 @@ const addButton = document.querySelector('.profile__add-button');
 // секция с карточками
 const card = document.querySelector('.cards');
 
-const imageForm = document.querySelector('[name=popupImage]')
-
 // попап 2 с картинками-названия фото
-const imageNameInput = imageForm.querySelector('.popup__input_string_title');
+const imageNameInput = popupElementAdd.querySelector('.popup__input_string_title');
 
 // попап 2 с картинками-ссылки на фото
-const imageLinkInput = imageForm.querySelector('.popup__input_string_link');
+const imageLinkInput = popupElementAdd.querySelector('.popup__input_string_link');
 
 let formElement = document.querySelector('.popup__info');
 let nameInput = formElement.querySelector('.popup__input_string_name');
@@ -46,10 +44,7 @@ let popupImage = popupElementImage.querySelector('.popup__image');
 let popupTitle = popupElementImage.querySelector('.popup__photo-title');
 
 function formSubmitHandler (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                                                // Так мы можем определить свою логику отправки.
-                                                // О том, как это делать, расскажем позже.
-
+    evt.preventDefault();
     // Получите значение полей jobInput и nameInput из свойства value
     formName.textContent = nameInput.value;
     formJob.textContent = jobInput.value;
@@ -128,6 +123,7 @@ function createTaskDomNode(name, link) {
   taskTemplate.querySelector('.card__title').textContent = name;
   taskTemplate.querySelector('.card__image').src = link;
   taskTemplate.querySelector('.card__image').alt = name;
+  deleteCard(taskTemplate);
   addLike(taskTemplate);
   openPopupImage(taskTemplate);
   return taskTemplate;
@@ -165,4 +161,13 @@ const submitImageFormHandler = (evt) => {
   imageLinkInput.value = '';
 };
 
-imageForm.addEventListener('submit', submitImageFormHandler);
+popupElementAdd.addEventListener('submit', submitImageFormHandler);
+
+// удаление карточки
+function deleteCard(data) {
+    // кнопка удаления карточки
+    const deleteButton = data.querySelector('.card__trash');
+    deleteButton.addEventListener("click", () => {
+    data.remove();
+  })
+}
