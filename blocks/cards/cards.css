@@ -1,6 +1,7 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(282px, calc(100% / 4)));
+  grid-template-rows: min-content;
   row-gap: 20px;
   column-gap: 17px;
   justify-content: center;
@@ -11,4 +12,3 @@
     grid-template-columns: repeat(auto-fit, 282px);
   }
 }
-

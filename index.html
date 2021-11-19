@@ -40,24 +40,11 @@
       <footer class="footer section page__footer">
         <p class="footer__copyright"> &copy; 2021 Mesto Russia</p>
       </footer>
-      <template id="card">
-        <article class="card cards__item">
-          <button class="card__trash link" type="button" aria-label="deleteCard"></button>
-          <img
-            class="card__image"
-            src="./images/Element_Karachaevsk.jpg"
-            alt="Развалены храма."/>
-          <div class="card__flex">
-            <h2 class="card__title">Карачаевск</h2>
-            <button class="card__like-icon" type="button" aria-label="like"></button>
-          </div>
-        </article>
-      </template>
       <div class="popup popup_type_edit">
         <div class="popup__container">
           <button class="popup__close-button link" type="button" aria-label="closePopup"></button>
           <label class="popup__title">Редактировать профиль</label>
-          <form class="popup__info" name="popupInfo">
+          <form class="popup__info popup__info_form_profile" name="popupInfo">
             <input name="userName" class="popup__input popup__input_string_name" type="text" value="" placeholder="Имя" required autocomplete="off">
             <input name="userJob" class="popup__input popup__input_string_job" type="text" value="" placeholder="Работа" required autocomplete="off">
             <button type="submit" class="popup__button">Сохранить</button>
@@ -83,6 +70,19 @@
         </div>
       </div>
     </div>
+    <template id="card">
+      <article class="card cards__item">
+        <button class="card__trash link" type="button" aria-label="deleteCard"></button>
+        <img
+          class="card__image"
+          src="./images/Element_Karachaevsk.jpg"
+          alt="Развалены храма."/>
+        <div class="card__flex">
+          <h2 class="card__title">Карачаевск</h2>
+          <button class="card__like-icon" type="button" aria-label="like"></button>
+        </div>
+      </article>
+    </template>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
