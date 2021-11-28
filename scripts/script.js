@@ -134,7 +134,7 @@ function openPopupImage(data) {
   {openPopup(popupElementImage);
   popupImage.src = cardImage.src;
   popupTitle.textContent = cardTitle.textContent;
-  popupTitle.alt = cardImage.textContent;
+  popupImage.alt = cardImage.alt;
   })
 };
 
@@ -157,6 +157,7 @@ const submitImageFormHandler = (evt) => {
   closePopup(popupElementAdd);
   imageNameInput.value = '';
   imageLinkInput.value = '';
+  // form2.reset();
 };
 
 popupElementAdd.addEventListener('submit', submitImageFormHandler);
