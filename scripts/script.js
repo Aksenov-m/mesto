@@ -66,6 +66,8 @@ const formJob = document.querySelector('.profile__job');
 const popupImage = popupElementImage.querySelector('.popup__image');
 const popupTitle = popupElementImage.querySelector('.popup__photo-title');
 
+// let escapeKeyDown
+
 function submitProfileForm (evt) {
     evt.preventDefault();
     // Получите значение полей jobInput и nameInput из свойства value
@@ -84,27 +86,31 @@ function openformElement() {
 // функция для открытия попапа
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  popupElement.addEventListener('keydown', EscPopup);
 };
 
 // функция для закрытия попапа
 function closePopup(popupElement) {
+  resetForm();
   popupElement.classList.remove('popup_opened');
+  popupElement.removeEventListener('keydown', EscPopup);
 };
 
+
 // слушатель для кнопки редактирования
-navButton.addEventListener("click", () => {
+navButton.addEventListener('click', () => {
   openPopup(popupElementEdit);
   openformElement();
 });
 
 // слушатель для кнопки добавления
-addButton.addEventListener("click", () => openPopup(popupElementAdd));
+addButton.addEventListener('click', () => openPopup(popupElementAdd));
 
 // слушатель для кнопки закрытия попапа 1 X
-closeButtonEdit.addEventListener('click', () => closePopup(popupElementEdit));
+closeButtonEdit.addEventListener('click', () => closePopup(popupElementEdit))
 
 // слушатель для кнопки закрытия попапа 2 X
-closeButtonAdd.addEventListener("click", () => closePopup(popupElementAdd));
+closeButtonAdd.addEventListener('click', () => closePopup(popupElementAdd));
 
 const result = initialCards.forEach(item => {
   addImageCard(item.name, item.link);
@@ -170,3 +176,25 @@ function deleteCard(data) {
     data.remove();
   })
 };
+
+enableValidation({
+  formSelector: '.popup__info',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+});
+
+
+// function EscPopup (evt, popupElement) {
+//   if (evt.key === "Escape") {
+//     closePopup(popupElement);
+//   }
+// };
+
+const EscPopup = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(popupElement);
+  }
+}
