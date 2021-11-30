@@ -25,6 +25,8 @@ const initialCards = [
   }
 ];
 
+let activePopup = null;
+
 // получаем элемент темплейт
 const template = document.querySelector('#card');
 
@@ -66,7 +68,14 @@ const formJob = document.querySelector('.profile__job');
 const popupImage = popupElementImage.querySelector('.popup__image');
 const popupTitle = popupElementImage.querySelector('.popup__photo-title');
 
-// let escapeKeyDown
+// Закрытие попапа нажатием на Esc
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape' && activePopup !== null) {
+    closePopup(activePopup);
+
+    activePopup = null;
+  }
+});
 
 function submitProfileForm (evt) {
     evt.preventDefault();
@@ -81,21 +90,26 @@ profileFormElement.addEventListener('submit', submitProfileForm);
 function openformElement() {
   nameInput.value = formName.textContent;
   jobInput.value = formJob.textContent;
-  };
+};
 
 // функция для открытия попапа
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
-  popupElement.addEventListener('keydown', EscPopup);
+  activePopup = popupElement;
+
+  // Закрытие попапа кликом на оверлей
+  popupElement.addEventListener('click', (e) => {
+    if (e.target === popupElement) {
+      closePopup(popupElement);
+    }
+  });
 };
 
 // функция для закрытия попапа
 function closePopup(popupElement) {
   resetForm();
   popupElement.classList.remove('popup_opened');
-  popupElement.removeEventListener('keydown', EscPopup);
 };
-
 
 // слушатель для кнопки редактирования
 navButton.addEventListener('click', () => {
@@ -154,6 +168,7 @@ function addLike(data) {
   evt.target.classList.toggle('card__like-icon_active');
   })
 };
+
 // форма добавления карточек
 const submitImageFormHandler = (evt) => {
   evt.preventDefault();
@@ -185,16 +200,3 @@ enableValidation({
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
 });
-
-
-// function EscPopup (evt, popupElement) {
-//   if (evt.key === "Escape") {
-//     closePopup(popupElement);
-//   }
-// };
-
-const EscPopup = (evt) => {
-  if (evt.key === 'Escape') {
-    closePopup(popupElement);
-  }
-}
