@@ -49,6 +49,9 @@ const navButton = document.querySelector('.profile__edit-button');
 // кнопка открытия 2 попапа
 const addButton = document.querySelector('.profile__add-button');
 
+// кнопка сохранить
+const cardAddButton = document.querySelector('.popup__button-card');
+
 // секция с карточками
 const cardsContainer = document.querySelector('.cards');
 
@@ -76,6 +79,12 @@ document.addEventListener('keydown', (evt) => {
     activePopup = null;
   }
 });
+
+function disableSubmitButton() {
+  if (cardAddButton.disabled = true) {
+    cardAddButton.classList.add('popup__button_disabled')
+  }
+};
 
 function submitProfileForm (evt) {
     evt.preventDefault();
@@ -109,6 +118,7 @@ function openPopup(popupElement) {
 function closePopup(popupElement) {
   resetForm();
   popupElement.classList.remove('popup_opened');
+  // hideInputError ();
 };
 
 // слушатель для кнопки редактирования
@@ -178,6 +188,7 @@ const submitImageFormHandler = (evt) => {
   closePopup(popupElementAdd);
   imageNameInput.value = '';
   imageLinkInput.value = '';
+  disableSubmitButton();
   // form2.reset();
 };
 

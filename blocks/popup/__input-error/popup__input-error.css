@@ -1,4 +1,4 @@
-.form__input-error {
+.popup__input-error {
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -6,8 +6,6 @@
   color: #ff0000;
   opacity: 0;
   position: absolute;
-  /* top: calc(100% + 6px);
-  left: 0; */
   transition: 0.3s;
   padding-top: 5px;
 }

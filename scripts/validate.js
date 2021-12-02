@@ -29,17 +29,6 @@ const isValid = (formElement, inputElement, config) => {
   }
 };
 
-// const hasInvalidInput = (inputList) => {
-//   // проходим по этому массиву методом some
-//   return inputList.some((inputElement) => {
-//     // Если поле не валидно, колбэк вернёт true
-//     // Обход массива прекратится и вся фунцкция
-//     // hasInvalidInput вернёт true
-
-//     return !inputElement.validity.valid;
-//   })
-// };
-
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (formElement, buttonElement, inactiveButtonClass) => {
@@ -102,9 +91,23 @@ const enableValidation = (config) => {
   });
 };
 
+  //  function resetForm() {
+  //   const formList = Array.from(activePopup.querySelectorAll('form'));
+  //   formList.forEach((formElement) => {
+  //   Array.from(formElement.querySelectorAll('.popup__input')).forEach((inputElement) =>
+  //   hideInputError(formElement, inputElement, config)
+  //   )});
+  // };
 
-// Функция сброса форм и ошибок
-function resetForm() {
-  document.forms.popupInfo.reset();
-  document.forms.popupImage.reset();
-};
+  function resetForm() {
+    const formList = Array.from(activePopup.querySelectorAll('form'));
+    formList.forEach((formElement) => {
+    Array.from(formElement.querySelectorAll('.popup__input')).forEach((inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('form__input_type_error');
+    errorElement.textContent = '';
+    document.forms.popupInfo.reset();
+    document.forms.popupImage.reset();
+  }
+  )});
+  };
