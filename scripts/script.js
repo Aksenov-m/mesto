@@ -37,13 +37,6 @@ const popupElementAdd = document.querySelector('.popup_type_add');
 // 3 попап
 const popupElementImage = document.querySelector('.popup_image_fullscreen');
 
-// кнопка закрытия 1 попапа
-const closeButtonEdit = popupElementEdit.querySelector('.popup__close-button');
-// кнопка закрытия 2 попапа
-const closeButtonAdd = popupElementAdd.querySelector('.popup__close-button')
-// кнопка закрытия 3 попапа
-const closeButtonImage = popupElementImage.querySelector('.popup__close-button')
-
 // кнопка открытия 1 попапа
 const navButton = document.querySelector('.profile__edit-button');
 // кнопка открытия 2 попапа
@@ -71,19 +64,41 @@ const formJob = document.querySelector('.profile__job');
 const popupImage = popupElementImage.querySelector('.popup__image');
 const popupTitle = popupElementImage.querySelector('.popup__photo-title');
 
-// Закрытие попапа нажатием на Esc
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && activePopup !== null) {
-    closePopup(activePopup);
+// открытый попап
+const openedPopup = document.querySelector('.popup_opened');
 
-    activePopup = null;
+// Все попапы в проекте
+const popups = document.querySelectorAll('.popup');
+
+const config = {
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
+// Закрытие попапа нажатием на Esc
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened') //нашли открытый попап
+    closePopup(openedPopup); //закрыли попап
   }
-});
+}
+
+// Закрытие попапа кликом на оверлей и Х
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
+})
 
 function disableSubmitButton() {
-  if (cardAddButton.disabled = true) {
-    cardAddButton.classList.add('popup__button_disabled')
-  }
+  cardAddButton.disabled = true;
+  cardAddButton.classList.add('popup__button_disabled');
 };
 
 function submitProfileForm (evt) {
@@ -104,21 +119,15 @@ function openformElement() {
 // функция для открытия попапа
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
   activePopup = popupElement;
-
-  // Закрытие попапа кликом на оверлей
-  popupElement.addEventListener('click', (e) => {
-    if (e.target === popupElement) {
-      closePopup(popupElement);
-    }
-  });
+  resetForm(activePopup, config);
 };
 
 // функция для закрытия попапа
 function closePopup(popupElement) {
-  resetForm();
   popupElement.classList.remove('popup_opened');
-  // hideInputError ();
+  document.removeEventListener('keydown', closeByEscape);
 };
 
 // слушатель для кнопки редактирования
@@ -129,12 +138,6 @@ navButton.addEventListener('click', () => {
 
 // слушатель для кнопки добавления
 addButton.addEventListener('click', () => openPopup(popupElementAdd));
-
-// слушатель для кнопки закрытия попапа 1 X
-closeButtonEdit.addEventListener('click', () => closePopup(popupElementEdit))
-
-// слушатель для кнопки закрытия попапа 2 X
-closeButtonAdd.addEventListener('click', () => closePopup(popupElementAdd));
 
 const result = initialCards.forEach(item => {
   addImageCard(item.name, item.link);
@@ -167,9 +170,6 @@ function openPopupImage(data) {
   popupImage.alt = cardImage.alt;
   })
 };
-
-// слушатель для кнопки закрытия попапа 3 X
-closeButtonImage.addEventListener("click", () => closePopup(popupElementImage));
 
 //добавления лайка
 function addLike(data) {

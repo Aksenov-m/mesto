@@ -91,23 +91,9 @@ const enableValidation = (config) => {
   });
 };
 
-  //  function resetForm() {
-  //   const formList = Array.from(activePopup.querySelectorAll('form'));
-  //   formList.forEach((formElement) => {
-  //   Array.from(formElement.querySelectorAll('.popup__input')).forEach((inputElement) =>
-  //   hideInputError(formElement, inputElement, config)
-  //   )});
-  // };
-
-  function resetForm() {
-    const formList = Array.from(activePopup.querySelectorAll('form'));
-    formList.forEach((formElement) => {
-    Array.from(formElement.querySelectorAll('.popup__input')).forEach((inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
-    errorElement.textContent = '';
-    document.forms.popupInfo.reset();
-    document.forms.popupImage.reset();
-  }
-  )});
-  };
+function resetForm(activePopup, config) {
+  const form = activePopup.querySelector('form');
+  const inputs = form.querySelectorAll('.popup__input');
+  inputs.forEach((input) => hideInputError(form, input, config));
+  form.reset();
+};
