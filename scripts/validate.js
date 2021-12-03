@@ -91,9 +91,10 @@ const enableValidation = (config) => {
   });
 };
 
-function resetForm(activePopup, config) {
-  const form = activePopup.querySelector('form');
-  const inputs = form.querySelectorAll('.popup__input');
+function resetForm(openedPopup, config) {
+  const { formSelector, inputSelector, } = config;
+  const form = openedPopup.querySelector(formSelector);
+  const inputs = form.querySelectorAll(inputSelector);
   inputs.forEach((input) => hideInputError(form, input, config));
   form.reset();
 };

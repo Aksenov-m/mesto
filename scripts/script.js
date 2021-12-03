@@ -25,7 +25,7 @@ const initialCards = [
   }
 ];
 
-let activePopup = null;
+// let activePopup = null;
 
 // получаем элемент темплейт
 const template = document.querySelector('#card');
@@ -71,6 +71,8 @@ const openedPopup = document.querySelector('.popup_opened');
 const popups = document.querySelectorAll('.popup');
 
 const config = {
+  formSelector: '.popup__info',
+  inputSelector: '.popup__input',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
@@ -120,8 +122,7 @@ function openformElement() {
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEscape);
-  activePopup = popupElement;
-  resetForm(activePopup, config);
+  // activePopup = popupElement;
 };
 
 // функция для закрытия попапа
@@ -134,10 +135,14 @@ function closePopup(popupElement) {
 navButton.addEventListener('click', () => {
   openPopup(popupElementEdit);
   openformElement();
+  resetForm(popupElementEdit, config)
 });
 
 // слушатель для кнопки добавления
-addButton.addEventListener('click', () => openPopup(popupElementAdd));
+addButton.addEventListener('click', () => {
+openPopup(popupElementAdd)
+resetForm(popupElementAdd, config)
+});
 
 const result = initialCards.forEach(item => {
   addImageCard(item.name, item.link);
