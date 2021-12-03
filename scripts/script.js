@@ -134,8 +134,8 @@ function closePopup(popupElement) {
 // слушатель для кнопки редактирования
 navButton.addEventListener('click', () => {
   openPopup(popupElementEdit);
-  openformElement();
   resetForm(popupElementEdit, config)
+  openformElement();
 });
 
 // слушатель для кнопки добавления
