@@ -24,6 +24,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+import { Card } from './Card.js';
 
 // let activePopup = null;
 
@@ -144,26 +145,26 @@ openPopup(popupElementAdd)
 resetForm(popupElementAdd, config)
 });
 
-const result = initialCards.forEach(item => {
-  addImageCard(item.name, item.link);
-});
+// const result = initialCards.forEach(item => {
+//   addImageCard(item.name, item.link);
+// });
 
-function addImageCard(name, link) {
-  const cardElement = createTaskDomNode(name, link);
-  cardsContainer.prepend(cardElement);
-};
+// function addImageCard(name, link) {
+//   const cardElement = createTaskDomNode(name, link);
+//   cardsContainer.prepend(cardElement);
+// };
 
-function createTaskDomNode(name, link) {
-	const taskTemplate = template.content.querySelector('.card').cloneNode(true);
-  taskTemplate.querySelector('.card__title').textContent = name;
-  const cardImage = taskTemplate.querySelector('.card__image');
-  cardImage.src = link;
-  cardImage.alt = name;
-  deleteCard(taskTemplate);
-  addLike(taskTemplate);
-  openPopupImage(taskTemplate);
-  return taskTemplate;
-};
+// function createTaskDomNode(name, link) {
+// 	const taskTemplate = template.content.querySelector('.card').cloneNode(true);
+//   taskTemplate.querySelector('.card__title').textContent = name;
+//   const cardImage = taskTemplate.querySelector('.card__image');
+//   cardImage.src = link;
+//   cardImage.alt = name;
+//   deleteCard(taskTemplate);
+//   addLike(taskTemplate);
+//   openPopupImage(taskTemplate);
+//   return taskTemplate;
+// };
 
 function openPopupImage(data) {
   const cardImage = data.querySelector('.card__image');
@@ -176,13 +177,13 @@ function openPopupImage(data) {
   })
 };
 
-//добавления лайка
-function addLike(data) {
-  const likeButton = data.querySelector('.card__like-icon');
-  likeButton.addEventListener('click', function (evt) {
-  evt.target.classList.toggle('card__like-icon_active');
-  })
-};
+// //добавления лайка
+// function addLike(data) {
+//   const likeButton = data.querySelector('.card__like-icon');
+//   likeButton.addEventListener('click', function (evt) {
+//   evt.target.classList.toggle('card__like-icon_active');
+//   })
+// };
 
 // форма добавления карточек
 const submitImageFormHandler = (evt) => {
@@ -199,14 +200,14 @@ const submitImageFormHandler = (evt) => {
 
 popupElementAdd.addEventListener('submit', submitImageFormHandler);
 
-// удаление карточки
-function deleteCard(data) {
-    // кнопка удаления карточки
-    const deleteButton = data.querySelector('.card__trash');
-    deleteButton.addEventListener("click", () => {
-    data.remove();
-  })
-};
+// // удаление карточки
+// function deleteCard(data) {
+//     // кнопка удаления карточки
+//     const deleteButton = data.querySelector('.card__trash');
+//     deleteButton.addEventListener("click", () => {
+//     data.remove();
+//   })
+// };
 
 enableValidation({
   formSelector: '.popup__info',
@@ -216,3 +217,18 @@ enableValidation({
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
 });
+
+// функция добавления карточки
+const addImageCard = (cardInfo) => {
+  // Создадим экземпляр карточки
+  const card = new Card(cardInfo, template);
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+
+  // Добавляем в DOM
+  cardsContainer.prepend(cardElement);
+};
+
+initialCards.forEach((item) => {
+  return addImageCard(item);
+  });
