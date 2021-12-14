@@ -24,6 +24,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 
 // let activePopup = null;
@@ -76,7 +78,8 @@ const config = {
   inputSelector: '.popup__input',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
+  errorClass: 'form__input-error_active',
+  submitButtonSelector: '.popup__button',
 };
 
 // Закрытие попапа нажатием на Esc
@@ -135,14 +138,14 @@ function closePopup(popupElement) {
 // слушатель для кнопки редактирования
 navButton.addEventListener('click', () => {
   openPopup(popupElementEdit);
-  resetForm(popupElementEdit, config)
+  ValidatorEditProfile.resetForm();
   openformElement();
 });
 
 // слушатель для кнопки добавления
 addButton.addEventListener('click', () => {
 openPopup(popupElementAdd)
-resetForm(popupElementAdd, config)
+ValidatorEditCard.resetForm();
 });
 
 // const result = initialCards.forEach(item => {
@@ -209,14 +212,14 @@ popupElementAdd.addEventListener('submit', submitImageFormHandler);
 //   })
 // };
 
-enableValidation({
-  formSelector: '.popup__info',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-});
+// enableValidation({
+//   formSelector: '.popup__info',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button',
+//   inactiveButtonClass: 'popup__button_disabled',
+//   inputErrorClass: 'form__input_type_error',
+//   errorClass: 'form__input-error_active'
+// });
 
 // функция добавления карточки
 const addImageCard = (cardInfo) => {
@@ -232,3 +235,9 @@ const addImageCard = (cardInfo) => {
 initialCards.forEach((item) => {
   return addImageCard(item);
   });
+
+  const ValidatorEditProfile = new FormValidator(config, popupElementEdit);
+  ValidatorEditProfile.enableValidation();
+
+  const ValidatorEditCard = new FormValidator(config, popupElementAdd);
+  ValidatorEditCard.enableValidation();
