@@ -36,5 +36,4 @@ export class Card {
   evt.target.classList.toggle('card__like-icon_active');
   })
  };
-
 }

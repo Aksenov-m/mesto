@@ -3,11 +3,11 @@ export class FormValidator {
     this._config = config;
     this._form = form;
   }
-  _showInputError = (inputElement) => {
+  _showInputError (inputElement) {
     // Находим элемент ошибки внутри самой функции
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._config.inputErrorClass);
-    errorElement.textContent = inputElement.errorMessage;
+    errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this._config.errorClass);
   };
   _hideInputError = (inputElement) => {
@@ -75,7 +75,7 @@ export class FormValidator {
   resetForm() {
     // const form = openedPopup.querySelector(formSelector);
     const inputs = this._form.querySelectorAll(this._config.inputSelector);
-    inputs.forEach((input) => this._form._hideInputError());
-    form.reset();
+    inputs.forEach((input) => this._hideInputError(input));
+    this._form.reset();
     };
 }
