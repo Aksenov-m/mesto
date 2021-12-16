@@ -1,8 +1,9 @@
 export class Card {
-  constructor(data, cardTemplate) {
+  constructor(data, cardTemplate, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
+    this._handleCardClick = handleCardClick;
   }
   // здесь выполним все необходимые операции, чтобы вернуть разметку
   _getTemplate() {
@@ -14,26 +15,29 @@ export class Card {
   // Запишем разметку в приватное поле _element.
   // Так у других элементов появится доступ к ней.
   this._element = this._getTemplate();
+  this._cardImage = this._element.querySelector('.card__image');
 
   // Добавим данные
-  this._element.querySelector('.card__image').src = this._link;
-  this._element.querySelector('.card__image').alt = this._name;
+  this._cardImage.src = this._link;
+  this._cardImage.alt = this._name;
   this._element.querySelector('.card__title').textContent = this._name;
-  this._deleteCard();
-  this._addLike();
+  this._setEventListeners();
   // Вернём элемент наружу
   return this._element;
  }
- // удаление карточки
- _deleteCard() {
-  // кнопка удаления карточки
+
+ _setEventListeners() {
+ this._cardImage.addEventListener('click', () => {
+  //  debugger
+  this._handleCardClick(this._name, this._link)
+ });
+ //добавления лайка
+ this._element.querySelector('.card__like-icon').addEventListener('click', function (evt) {
+  evt.target.classList.toggle('card__like-icon_active');
+  });
+  // удаление карточки, кнопка удаления карточки
   this._element.querySelector('.card__trash').addEventListener("click", () => {
     this._element.remove();
-   })};
- //добавления лайка
- _addLike() {
-  this._element.querySelector('.card__like-icon').addEventListener('click', function (evt) {
-  evt.target.classList.toggle('card__like-icon_active');
-  })
- };
+   });
+ }
 }

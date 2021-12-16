@@ -107,10 +107,10 @@ popups.forEach((popup) => {
   })
 })
 
-function disableSubmitButton() {
-  cardAddButton.disabled = true;
-  cardAddButton.classList.add('popup__button_disabled');
-};
+// function disableSubmitButton() {
+//   cardAddButton.disabled = true;
+//   cardAddButton.classList.add('popup__button_disabled');
+// };
 
 function submitProfileForm (evt) {
     evt.preventDefault();
@@ -143,28 +143,28 @@ function closePopup(popupElement) {
 // слушатель для кнопки редактирования
 navButton.addEventListener('click', () => {
   openPopup(popupElementEdit);
-  ValidatorEditProfile.resetForm();
+  // ValidatorEditProfile.resetValidation();
   openformElement();
 });
 
 // слушатель для кнопки добавления
 addButton.addEventListener('click', () => {
 openPopup(popupElementAdd)
-ValidatorEditCard.resetForm();
+// ValidatorEditCard.resetValidation();
 });
 
-function addOnCardClick(data) {
-  const cardImage = data.querySelector('.card__image');
-  const cardTitle = data.querySelector('.card__title');
-  cardImage.addEventListener("click", () =>
-  {openPopup(popupElementImage);
-  popupImage.src = cardImage.src;
-  popupTitle.textContent = cardTitle.textContent;
-  popupImage.alt = cardImage.alt;
-  })
-};
+// function addOnCardClick(data) {
+//   const cardImage = data.querySelector('.card__image');
+//   const cardTitle = data.querySelector('.card__title');
+//   cardImage.addEventListener("click", () =>
+//   {openPopup(popupElementImage);
+//   popupImage.src = cardImage.src;
+//   popupTitle.textContent = cardTitle.textContent;
+//   popupImage.alt = cardImage.alt;
+//   })
+// };
 
-// форма добавления карточек
+// функция отправки формы добавления карточки
 const submitImageFormHandler = (evt) => {
   evt.preventDefault();
   const inputImageName = imageNameInput.value;
@@ -173,29 +173,78 @@ const submitImageFormHandler = (evt) => {
   closePopup(popupElementAdd);
   imageNameInput.value = '';
   imageLinkInput.value = '';
-  disableSubmitButton();
+  // disableSubmitButton();
   // form2.reset();
 };
-
+// слушатель на отрпавку формы папапа добавления карточек
 popupElementAdd.addEventListener('submit', submitImageFormHandler);
 
 // функция добавления карточки
 const addImageCard = (cardInfo) => {
   // Создадим экземпляр карточки
-  const card = new Card(cardInfo, template);
+  const card = new Card(cardInfo, template, handleCardClick);
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
-  addOnCardClick(cardElement);
   // Добавляем в DOM
   cardsContainer.prepend(cardElement);
 };
 
+
+function handleCardClick(name, link) {
+  // устанавливаем ссылку
+  // устанавливаем подпись картинке
+  // открываем попап универсальной функцией, которая навешивает обработчик Escape внутри себя
+  popupImage.src = link.src;
+  popupTitle.textContent = name.textContent;
+  popupImage.alt = name.alt;
+  openPopup(popupElementImage);
+}
+
+// создание новой карточки
+//  function createCard(item) {
+//   const card = new Card(cardInfo, template, handleCardClick);
+//   const item = card.generateCard();
+//   // тут создаете карточку и возвращаете ее
+//  return createCard();
+// };
+
+function createCard(item) {
+  // тут создаете карточку и возвращаете ее
+  const card = new Card(item, template, handleCardClick);
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+return cardElement;
+}
+
+// проход по масиву карточек и добавление карточек
 initialCards.forEach((item) => {
-  return addImageCard(item);
-  });
+  return createCard(item);
+});
 
-  const ValidatorEditProfile = new FormValidator(config, popupFormEdit);
-  ValidatorEditProfile.enableValidation();
+// Добавляем в DOM
+// cardsContainer.prepend(cardElement);
 
-  const ValidatorEditCard = new FormValidator(config, popupFormAdd);
-  ValidatorEditCard.enableValidation();
+  // const ValidatorEditProfile = new FormValidator(config, popupFormEdit);
+  // ValidatorEditProfile.enableValidation();
+
+  // const ValidatorEditCard = new FormValidator(config, popupFormAdd);
+  // ValidatorEditCard.enableValidation();
+  // const formValidators = {};
+
+  // Включение валидации
+//   const enableValidation = (config) => {
+//     const formList = Array.from(document.querySelectorAll(config.formSelector))
+//     formList.forEach((formElement) => {
+//       const validator = new FormValidator(formElement, config)
+//      // вот тут в объект записываем под именем формы
+//       formValidators[ formElement.name ] = validator;
+//      validator.enableValidation();
+//     });
+//   };
+
+//   enableValidation(config);
+
+//   formValidators[ profileForm.popupInfo ].resetValidation()
+
+// // или
+// formValidators[ addCardForm.popupImage ].resetValidation()

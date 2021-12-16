@@ -2,6 +2,10 @@ export class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
+    // Находим все поля внутри формы,
+    // сделаем из них массив методом Array.from
+    this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+    this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
   }
   _showInputError (inputElement) {
     // Находим элемент ошибки внутри самой функции
@@ -43,21 +47,19 @@ export class FormValidator {
   _setEventListeners = () => {
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
-    const buttonElement = this._form.querySelector(this._config.submitButtonSelector);
 
     // чтобы проверить состояние кнопки в самом начале
-    this._toggleButtonState(buttonElement);
+    this._toggleButtonState(this._submitButton);
 
    // Обойдём все элементы полученной коллекции
-   inputList.forEach((inputElement) => {
+   this._inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
     inputElement.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       this._isValid(inputElement);
       // чтобы проверять его при изменении любого из полей
-      this._toggleButtonState(buttonElement);
+      this._toggleButtonState(this._submitButton);
     });
   });
   };
@@ -72,10 +74,13 @@ export class FormValidator {
       // объект props передаём дальше. Он будет содержать в себе все необходимые свойства
       this._setEventListeners();
   };
-  resetForm() {
-    // const form = openedPopup.querySelector(formSelector);
-    const inputs = this._form.querySelectorAll(this._config.inputSelector);
-    inputs.forEach((input) => this._hideInputError(input));
-    this._form.reset();
-    };
+  resetValidation() {
+    // управляем кнопкой
+    this._toggleButtonState();
+    // очищаем ошибки
+      this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+      this._form.reset();
+    });
+  }
 }
