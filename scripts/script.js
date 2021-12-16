@@ -1,3 +1,5 @@
+const formValidators = {};
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -73,7 +75,7 @@ const popupImage = popupElementImage.querySelector('.popup__image');
 const popupTitle = popupElementImage.querySelector('.popup__photo-title');
 
 // открытый попап
-const openedPopup = document.querySelector('.popup_opened');
+// const openedPopup = document.querySelector('.popup_opened');
 
 // Все попапы в проекте
 const popups = document.querySelectorAll('.popup');
@@ -107,11 +109,6 @@ popups.forEach((popup) => {
   })
 })
 
-// function disableSubmitButton() {
-//   cardAddButton.disabled = true;
-//   cardAddButton.classList.add('popup__button_disabled');
-// };
-
 function submitProfileForm (evt) {
     evt.preventDefault();
     // Получите значение полей jobInput и nameInput из свойства value
@@ -142,109 +139,72 @@ function closePopup(popupElement) {
 
 // слушатель для кнопки редактирования
 navButton.addEventListener('click', () => {
+  const formName = popupElementEdit.querySelector(config.formSelector).name;
+  formValidators[formName].resetValidation();
   openPopup(popupElementEdit);
-  // ValidatorEditProfile.resetValidation();
   openformElement();
 });
 
 // слушатель для кнопки добавления
 addButton.addEventListener('click', () => {
+  const formName = popupElementAdd.querySelector(config.formSelector).name;
+  formValidators[formName].resetValidation();
 openPopup(popupElementAdd)
-// ValidatorEditCard.resetValidation();
 });
 
-// function addOnCardClick(data) {
-//   const cardImage = data.querySelector('.card__image');
-//   const cardTitle = data.querySelector('.card__title');
-//   cardImage.addEventListener("click", () =>
-//   {openPopup(popupElementImage);
-//   popupImage.src = cardImage.src;
-//   popupTitle.textContent = cardTitle.textContent;
-//   popupImage.alt = cardImage.alt;
-//   })
-// };
 
 // функция отправки формы добавления карточки
 const submitImageFormHandler = (evt) => {
   evt.preventDefault();
   const inputImageName = imageNameInput.value;
   const inputImageLink = imageLinkInput.value;
-  addImageCard(inputImageName, inputImageLink);
+  const card = createCard({ name: inputImageName, link: inputImageLink });
+  prependImageCard(card);
   closePopup(popupElementAdd);
-  imageNameInput.value = '';
-  imageLinkInput.value = '';
-  // disableSubmitButton();
-  // form2.reset();
 };
+
 // слушатель на отрпавку формы папапа добавления карточек
 popupElementAdd.addEventListener('submit', submitImageFormHandler);
 
-// функция добавления карточки
-const addImageCard = (cardInfo) => {
-  // Создадим экземпляр карточки
-  const card = new Card(cardInfo, template, handleCardClick);
-  // Создаём карточку и возвращаем наружу
-  const cardElement = card.generateCard();
-  // Добавляем в DOM
+// функция добавления карточки в DOM
+const prependImageCard = (cardElement) => {
   cardsContainer.prepend(cardElement);
 };
 
-
+// фннкция клика по карточке
 function handleCardClick(name, link) {
   // устанавливаем ссылку
   // устанавливаем подпись картинке
   // открываем попап универсальной функцией, которая навешивает обработчик Escape внутри себя
-  popupImage.src = link.src;
-  popupTitle.textContent = name.textContent;
-  popupImage.alt = name.alt;
+  popupImage.src = link;
+  popupTitle.textContent = name;
+  popupImage.alt = name;
   openPopup(popupElementImage);
 }
 
-// создание новой карточки
-//  function createCard(item) {
-//   const card = new Card(cardInfo, template, handleCardClick);
-//   const item = card.generateCard();
-//   // тут создаете карточку и возвращаете ее
-//  return createCard();
-// };
-
+// создания новой карточки
 function createCard(item) {
   // тут создаете карточку и возвращаете ее
   const card = new Card(item, template, handleCardClick);
   // Создаём карточку и возвращаем наружу
-  const cardElement = card.generateCard();
-return cardElement;
+  return card.generateCard();
 }
 
 // проход по масиву карточек и добавление карточек
 initialCards.forEach((item) => {
-  return createCard(item);
+  const card = createCard(item);
+  prependImageCard(card);
 });
 
-// Добавляем в DOM
-// cardsContainer.prepend(cardElement);
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    // вот тут в объект записываем под именем формы
+    formValidators[ formElement.name ] = validator;
+    validator.enableValidation();
+  });
+};
 
-  // const ValidatorEditProfile = new FormValidator(config, popupFormEdit);
-  // ValidatorEditProfile.enableValidation();
-
-  // const ValidatorEditCard = new FormValidator(config, popupFormAdd);
-  // ValidatorEditCard.enableValidation();
-  // const formValidators = {};
-
-  // Включение валидации
-//   const enableValidation = (config) => {
-//     const formList = Array.from(document.querySelectorAll(config.formSelector))
-//     formList.forEach((formElement) => {
-//       const validator = new FormValidator(formElement, config)
-//      // вот тут в объект записываем под именем формы
-//       formValidators[ formElement.name ] = validator;
-//      validator.enableValidation();
-//     });
-//   };
-
-//   enableValidation(config);
-
-//   formValidators[ profileForm.popupInfo ].resetValidation()
-
-// // или
-// formValidators[ addCardForm.popupImage ].resetValidation()
+enableValidation(config);

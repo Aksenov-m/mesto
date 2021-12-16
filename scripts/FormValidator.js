@@ -76,11 +76,12 @@ export class FormValidator {
   };
   resetValidation() {
     // управляем кнопкой
-    this._toggleButtonState();
+    this._toggleButtonState(this._submitButton);
     // очищаем ошибки
       this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
       this._form.reset();
     });
+    this._toggleButtonState(this._submitButton);
   }
 }
