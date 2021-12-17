@@ -35,13 +35,13 @@ export class FormValidator {
   };
   // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
-   _toggleButtonState = (buttonElement) => {
+   _toggleButtonState = () => {
   // Проверяем валидность формы.
   const isFormValid = this._form.checkValidity();
   // Если форма невалидна, то присваиваем свойству disabled кнопки значение true
-  buttonElement.disabled = !isFormValid;
+  this._submitButton.disabled = !isFormValid;
   // Если форма невалидна, добавляем кнопке класс
-  buttonElement.classList.toggle(this._config.inactiveButtonClass, !isFormValid)
+  this._submitButton.classList.toggle(this._config.inactiveButtonClass, !isFormValid)
   }
 
   _setEventListeners = () => {
@@ -49,7 +49,7 @@ export class FormValidator {
     // сделаем из них массив методом Array.from
 
     // чтобы проверить состояние кнопки в самом начале
-    this._toggleButtonState(this._submitButton);
+    this._toggleButtonState();
 
    // Обойдём все элементы полученной коллекции
    this._inputList.forEach((inputElement) => {
@@ -59,7 +59,7 @@ export class FormValidator {
       // передав ей форму и проверяемый элемент
       this._isValid(inputElement);
       // чтобы проверять его при изменении любого из полей
-      this._toggleButtonState(this._submitButton);
+      this._toggleButtonState();
     });
   });
   };
@@ -75,13 +75,12 @@ export class FormValidator {
       this._setEventListeners();
   };
   resetValidation() {
-    // управляем кнопкой
-    this._toggleButtonState(this._submitButton);
     // очищаем ошибки
-      this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement);
-      this._form.reset();
+     this._form.reset();
+     this._inputList.forEach((inputElement) => {
+     this._hideInputError(inputElement);
     });
-    this._toggleButtonState(this._submitButton);
+    // управляем кнопкой
+    this._toggleButtonState();
   }
 }
