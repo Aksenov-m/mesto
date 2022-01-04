@@ -1,0 +1,19 @@
+{
+  "name": "yandex.praktikum",
+  "version": "0.0.1",
+  "description": "Learning platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aksenov-m/mesto.git"
+  },
+  "author": "Mikhail Aksenov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aksenov-m/mesto/issues"
+  },
+  "homepage": "https://github.com/Aksenov-m/mesto#readme"
+}
