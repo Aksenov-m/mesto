@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./index.css" />
   </head>
   <body class="page">
     <div class="page__container">
       <header class="header section page__header">
         <img
           class="header__logo"
-          src="../images/header-logo.svg"
+          src="<%=require('./images/header-logo.svg')%>"
           alt="Логотип места России."
         />
       </header>
@@ -21,7 +20,7 @@
           <div class="profile__content">
             <img
               class="profile__avatar"
-              src="../images/Profile_Avatar.jpg"
+              src="<%=require('./images/Profile_Avatar.jpg')%>"
               alt="Аватар."
             />
             <div class="profile__info">
@@ -79,7 +78,7 @@
         <button class="card__trash link" type="button" aria-label="deleteCard"></button>
         <img
           class="card__image"
-          src="./images/Element_Karachaevsk.jpg"
+          src=" "
           alt="Развалены храма."/>
         <div class="card__flex">
           <h2 class="card__title">Карачаевск</h2>
@@ -87,6 +86,5 @@
         </div>
       </article>
     </template>
-    <script type="module" src="./index.js"></script>
   </body>
 </html>

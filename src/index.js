@@ -1,11 +1,14 @@
+// index.js
+import './index.css'; // добавьте импорт главного файла стилей
+
 import { formValidators, initialCards, template, popupElementEdit, popupElementAdd, popupElementImage, navButton, addButton, cardsContainer, imageNameInput, imageLinkInput, profileFormElement,
-nameInput, jobInput, formName, formJob, popups, config } from '../utils/constants.js';
-import { FormValidator } from '../components/FormValidator.js';
-import { Card } from '../components/Card.js';
-import Section from '../components/Section.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import UserInfo from '../components/UserInfo.js';
+nameInput, jobInput, formName, formJob, popups, config } from './utils/constants.js';
+import { FormValidator } from './components/FormValidator.js';
+import { Card } from './components/Card.js';
+import Section from './components/Section.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
 
 function submitProfileForm (evt) {
     evt.preventDefault();
