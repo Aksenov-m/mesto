@@ -30,12 +30,12 @@ export const initialCards = [
 // получаем элемент темплейт
 export const template = document.querySelector('#card');
 
-// // 1 попап
+// // // 1 попап
 export const popupElementEdit = document.querySelector('.popup_type_edit');
-// // 2 попап
+// 2 попап
 export const popupElementAdd = document.querySelector('.popup_type_add');
-// 3 попап
-export const popupElementImage = document.querySelector('.popup_image_fullscreen');
+// // 3 попап
+// export const popupElementImage = document.querySelector('.popup_image_fullscreen');
 
 // // 1 попап
 // export const popupElementEdit = '.popup_type_edit';

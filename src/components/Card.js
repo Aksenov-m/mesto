@@ -26,18 +26,23 @@ export class Card {
   return this._element;
  }
 
+ _toggleLike(evt) {
+  evt.target.classList.toggle('card__like-icon_active');
+ }
+
+ _removeCard = () => {
+  this._element.remove();
+  this._element = null;
+ }
+
  _setEventListeners() {
  this._cardImage.addEventListener('click', () => {
   //  debugger
   this._handleCardClick(this._name, this._link)
  });
  //добавления лайка
- this._element.querySelector('.card__like-icon').addEventListener('click', function (evt) {
-  evt.target.classList.toggle('card__like-icon_active');
-  });
+  this._element.querySelector('.card__like-icon').addEventListener('click', this._toggleLike);
   // удаление карточки, кнопка удаления карточки
-  this._element.querySelector('.card__trash').addEventListener("click", () => {
-    this._element.remove();
-   });
- }
+  this._element.querySelector('.card__trash').addEventListener("click", this._removeCard);
+}
 }

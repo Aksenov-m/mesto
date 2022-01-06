@@ -1,19 +1,22 @@
 // index.js
 import './index.css'; // добавьте импорт главного файла стилей
 
-import { formValidators, initialCards, template, popupElementEdit, popupElementAdd, popupElementImage, navButton, addButton, cardsContainer, imageNameInput, imageLinkInput, profileFormElement,
-nameInput, jobInput, formName, formJob, popups, config } from './utils/constants.js';
-import { FormValidator } from './components/FormValidator.js';
-import { Card } from './components/Card.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
+import { formValidators, initialCards, template, popupElementEdit, popupElementAdd, navButton, addButton, cardsContainer, imageNameInput, imageLinkInput,
+nameInput, jobInput, formName, formJob, popups, config } from '../utils/constants.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { Card } from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
-function submitProfileForm (evt) {
-    evt.preventDefault();
-    // Получите значение полей jobInput и nameInput из свойства value
-    popupUserInfo.setUserInfo(nameInput, jobInput);
+const submitProfileForm = (userData) => {
+    // evt.preventDefault();
+    const item = {
+      name: userData['userName'],
+      job: userData['userJob']
+  };
+    popupUserInfo.setUserInfo(item);
     popupEdit.close();
 };
 
@@ -22,9 +25,9 @@ navButton.addEventListener('click', () => {
   const formName = popupElementEdit.querySelector(config.formSelector).name;
   formValidators[formName].resetValidation();
   popupEdit.open();
-  popupEdit.setEventListeners();
-  nameInput.value = popupUserInfo.getUserInfo().name;
-  jobInput.value = popupUserInfo.getUserInfo().job;
+  const userInfo = popupUserInfo.getUserInfo();
+  nameInput.value = userInfo.name;
+  jobInput.value = userInfo.job;
   // openformElement();
 });
 
@@ -33,18 +36,21 @@ addButton.addEventListener('click', () => {
   const formName = popupElementAdd.querySelector(config.formSelector).name;
   formValidators[formName].resetValidation();
   popupAddImage.open();
-  popupAddImage.setEventListeners();
 });
 
 
 // функция отправки формы добавления карточки
-const submitImageFormHandler = (evt) => {
-  evt.preventDefault();
-  const inputImageName = imageNameInput.value;
-  const inputImageLink = imageLinkInput.value;
-  const card = createCard({ name: inputImageName, link: inputImageLink });
+const submitImageFormHandler = (data) => {
+  // evt.preventDefault();
+  // const inputImageName = imageNameInput.value;
+  // const inputImageLink = imageLinkInput.value;
+  const item = {
+    name: data['imageName'],
+    link: data['imagelink']
+};
+  const card = createCard(item);
   // prependImageCard(card);
-  cardsList.addItem(card);
+  cardsList.appendAddItem(card);
   popupAddImage.close();
 };
 
@@ -71,21 +77,20 @@ const enableValidation = (config) => {
 enableValidation(config);
 
 const cardsList = new Section({
-  items: initialCards,
+  // items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, template, handleCardClick);
-    const cardElement = card.generateCard();
-    cardsList.addItem(cardElement);
+    const cardElement = createCard(item);
+    cardsList.prependAddItem(cardElement);
   },
 },
 cardsContainer
 );
-cardsList.renderItems();
+// отрисовка карточек
+cardsList.renderItems(initialCards);
 
 
-const popupImage = new PopupWithImage({
-  popupSelector: popupElementImage,
-});
+const popupImage = new PopupWithImage(
+'.popup_image_fullscreen');
 popupImage.setEventListeners();
 
 // фннкция клика по карточке
@@ -93,15 +98,15 @@ function handleCardClick(name, link) {
   popupImage.open(name, link);
 }
 
-const popupAddImage = new PopupWithForm({
-  popupSelector: popupElementAdd,
-}, submitImageFormHandler);
+const popupAddImage = new PopupWithForm(
+ '.popup_type_add', submitImageFormHandler);
+ popupAddImage.setEventListeners();
 
-const popupEdit = new PopupWithForm({
-  popupSelector: popupElementEdit,
-}, submitProfileForm);
+const popupEdit = new PopupWithForm(
+ '.popup_type_edit', submitProfileForm);
+ popupEdit.setEventListeners();
 
 const popupUserInfo = new UserInfo({
-  nameSelector: formName,
-  jobSelector: formJob
+  name: formName,
+  job: formJob
 });

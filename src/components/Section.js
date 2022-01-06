@@ -1,15 +1,18 @@
 //слой
 export default class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._renderedItems = items;
+  constructor({renderer }, containerSelector) {
+    // this._renderedItems = items;
     this._renderer = renderer; // renderer — это функция
     this._container = document.querySelector(containerSelector);
   }
-  addItem(element) {
-    this._container.prepend(element);
+  prependAddItem(element) {
+    this._container.prepend(element); //вставляем в начало
   }
-  renderItems() {
-    this._renderedItems.forEach(item => {
+  appendAddItem(element){
+    this._container.append(element); //вставляем в конец
+  }
+  renderItems(items) {
+    items.forEach(item => {
       this._renderer(item); // вызываем renderer, передав item
     });
   }
