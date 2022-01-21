@@ -124,3 +124,20 @@ const popupUserInfo = new UserInfo({
   name: formName,
   job: formJob,
 });
+
+// function createPost(newPost) {
+//   fetch('https://jsonplaceholder.typicode.com/posts', {
+//     method: 'POST', // нужно указать метод запроса
+//     // тело запроса
+//     body: JSON.stringify({
+//       title: newPost.title,
+//       body: newPost.body
+//     }),
+//     // и заголовки
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8'
+//     }
+//   });
+//   .then(res => res.json());
+//   .then(json => console.log(json)
+// }
