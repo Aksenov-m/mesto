@@ -1,38 +1,59 @@
 // index.js
 import './index.css'; // импорт главного файла стилей
 
-import {
-  formValidators,
-  initialCards,
-  template,
-  popupElementEdit,
-  popupElementAdd,
-  navButton,
-  addButton,
-  cardsContainer,
-  imageNameInput,
-  imageLinkInput,
-  nameInput,
-  jobInput,
-  formName,
-  formJob,
-  popups,
-  config,
-} from '../utils/constants.js';
+import { formValidators, template, popupElementEdit, popupElementAdd, navButton, addButton, cardsContainer, nameInput, jobInput, formName, formJob, config, avatarButton, avatarInput, popupElementAvatar } from '../utils/constants.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import { Api } from '../components/Api';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-34',
+  headers: {
+    authorization: '8de7cc2c-4ba5-4d74-a29d-069658d4542d',
+    'Content-Type': 'application/json',
+  },
+});
+
+api
+  .getInitialCards()
+  .then((data) => {
+    cardsList.renderItems(data);
+  })
+  .catch((err) => alert(err));
+
+api
+  .getInitialUsers()
+  .then((user) => {
+    userInfo.setUserInfo({
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+    });
+  })
+  .catch((err) => alert(err));
+
+const userInfo = new UserInfo({
+  name: formName,
+  about: formJob,
+  avatar: avatarButton,
+});
 
 const submitProfileForm = (userData) => {
   // evt.preventDefault();
   const item = {
     name: userData['userName'],
-    job: userData['userJob'],
+    about: userData['userJob'],
   };
-  popupUserInfo.setUserInfo(item);
+  api
+    .editUsers(item)
+    .then(() => {
+      userInfo.setUserInfo(item);
+    })
+    .catch((err) => alert(err));
   popupEdit.close();
 };
 
@@ -41,9 +62,9 @@ navButton.addEventListener('click', () => {
   const formName = popupElementEdit.querySelector(config.formSelector).name;
   formValidators[formName].resetValidation();
   popupEdit.open();
-  const userInfo = popupUserInfo.getUserInfo();
-  nameInput.value = userInfo.name;
-  jobInput.value = userInfo.job;
+  const userInfoForm = userInfo.getUserInfo();
+  nameInput.value = userInfoForm.name;
+  jobInput.value = userInfoForm.about;
   // openformElement();
 });
 
@@ -63,6 +84,7 @@ const submitImageFormHandler = (data) => {
     name: data['imageName'],
     link: data['imagelink'],
   };
+
   const card = createCard(item);
   // prependImageCard(card);
   cardsList.prependAddItem(card);
@@ -101,7 +123,7 @@ const cardsList = new Section(
   cardsContainer
 );
 // отрисовка карточек
-cardsList.renderItems(initialCards);
+// cardsList.renderItems(initialCards);
 
 const popupImage = new PopupWithImage('.popup_image_fullscreen');
 popupImage.setEventListeners();
@@ -111,33 +133,33 @@ function handleCardClick(name, link) {
   popupImage.open(name, link);
 }
 
-const popupAddImage = new PopupWithForm(
-  '.popup_type_add',
-  submitImageFormHandler
-);
+const popupAddImage = new PopupWithForm('.popup_type_add', submitImageFormHandler);
 popupAddImage.setEventListeners();
 
 const popupEdit = new PopupWithForm('.popup_type_edit', submitProfileForm);
 popupEdit.setEventListeners();
 
-const popupUserInfo = new UserInfo({
-  name: formName,
-  job: formJob,
+const popupAvatar = new PopupWithForm('.popup_type_avatar', submitAvatarForm);
+popupAvatar.setEventListeners();
+
+// слушатель для кнопки обновление аватара пользователя
+avatarButton.addEventListener('click', () => {
+  const formName = popupElementAvatar.querySelector(config.formSelector).name;
+  formValidators[formName].resetValidation();
+  popupAvatar.open();
+  const userInfoForm = userInfo.getUserInfo();
+  avatarInput.value = userInfoForm.avatar;
 });
 
-// function createPost(newPost) {
-//   fetch('https://jsonplaceholder.typicode.com/posts', {
-//     method: 'POST', // нужно указать метод запроса
-//     // тело запроса
-//     body: JSON.stringify({
-//       title: newPost.title,
-//       body: newPost.body
-//     }),
-//     // и заголовки
-//     headers: {
-//       'Content-Type': 'application/json; charset=UTF-8'
-//     }
-//   });
-//   .then(res => res.json());
-//   .then(json => console.log(json)
-// }
+const submitAvatarForm = (avatarData) => {
+  const item = {
+    avatar: avatarData['avatarlink'],
+  };
+  api
+    .editAvatar(item)
+    .then(() => {
+      userInfo.setUserAvatar(item);
+    })
+    .catch((err) => alert(err));
+  popupAvatar.close();
+};

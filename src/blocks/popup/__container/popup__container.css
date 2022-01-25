@@ -1,7 +1,7 @@
 .popup__container {
   position: relative;
   border-radius: 10px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   max-width: 430px;
   width: 100%;
   margin: 0 auto;
@@ -9,7 +9,7 @@
   padding: 34px 36px 37px 36px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: space-between;
 }
 

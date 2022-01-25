@@ -8,8 +8,41 @@
   flex-wrap: wrap;
 }
 
+.profile__content::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(../../../images/Profile_Button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px 26px;
+  background-color: #2a2c2f;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.profile__content:hover::after {
+  opacity: 0.8;
+  transition: opacity 0.5s 0.1s linear;
+  z-index: 1;
+}
+
 @media screen and (max-width: 500px) {
   .profile__content {
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__content::after {
+    left: calc((100% - 120px) / 2);
   }
 }

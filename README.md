@@ -24,4 +24,4 @@
 
 **Ссылка**
 
-* [Ссылка на проект](https://aksenov-m.github.io/mesto/)
+* [Ссылка на проект](https://aksenov-m.github.io/mesto/index)

@@ -1,31 +1,31 @@
 export const formValidators = {};
 
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
+// export const initialCards = [
+//   {
+//     name: 'Архыз',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+//   },
+//   {
+//     name: 'Челябинская область',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+//   },
+//   {
+//     name: 'Иваново',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+//   },
+//   {
+//     name: 'Камчатка',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+//   },
+//   {
+//     name: 'Холмогорский район',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+//   },
+//   {
+//     name: 'Байкал',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+//   },
+// ];
 
 // получаем элемент темплейт
 export const template = document.querySelector('#card');
@@ -35,15 +35,10 @@ export const popupElementEdit = document.querySelector('.popup_type_edit');
 // 2 попап
 export const popupElementAdd = document.querySelector('.popup_type_add');
 // // 3 попап
-// export const popupElementImage = document.querySelector('.popup_image_fullscreen');
-
-// // 1 попап
-// export const popupElementEdit = '.popup_type_edit';
+export const popupElementAvatar = document.querySelector('.popup_type_avatar');
 
 // форма попапа с редактированием профиля
-export const popupFormEdit = popupElementEdit.querySelector(
-  '.popup__info_form_profile'
-);
+export const popupFormEdit = popupElementEdit.querySelector('.popup__info_form_profile');
 // форма попапа с добавлением карточки
 export const popupFormAdd = popupElementAdd.querySelector('.popup__info');
 
@@ -55,28 +50,22 @@ export const addButton = document.querySelector('.profile__add-button');
 // кнопка сохранить
 export const cardAddButton = document.querySelector('.popup__button-card');
 
+// кнопка обновление аватара пользователя (3 попап)
+export const avatarButton = document.querySelector('.profile__avatar');
+
 // секция с карточками
 export const cardsContainer = '.cards';
 
 // попап 2 с картинками-названия фото
-export const imageNameInput = popupElementAdd.querySelector(
-  '.popup__input_string_title'
-);
+export const imageNameInput = popupElementAdd.querySelector('.popup__input_string_title');
 
 // попап 2 с картинками-ссылки на фото
-export const imageLinkInput = popupElementAdd.querySelector(
-  '.popup__input_string_link'
-);
+export const imageLinkInput = popupElementAdd.querySelector('.popup__input_string_link');
 
-export const profileFormElement = document.querySelector(
-  '.popup__info_form_profile'
-);
-export const nameInput = profileFormElement.querySelector(
-  '.popup__input_string_name'
-);
-export const jobInput = profileFormElement.querySelector(
-  '.popup__input_string_job'
-);
+export const profileFormElement = document.querySelector('.popup__info_form_profile');
+export const nameInput = profileFormElement.querySelector('.popup__input_string_name');
+export const jobInput = profileFormElement.querySelector('.popup__input_string_job');
+export const avatarInput = document.querySelector('.popup__input_string_avatar-link');
 
 export const formName = document.querySelector('.profile__name');
 export const formJob = document.querySelector('.profile__job');
