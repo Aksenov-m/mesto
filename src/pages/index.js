@@ -7,6 +7,7 @@ import { Card } from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithDel from '../components/PopupWithDel.js';
 import UserInfo from '../components/UserInfo.js';
 import { Api } from '../components/Api';
 
@@ -31,6 +32,8 @@ api
     userInfo.setUserInfo({
       name: user.name,
       about: user.about,
+    });
+    userInfo.setUserAvatar({
       avatar: user.avatar,
     });
   })
@@ -57,6 +60,19 @@ const submitProfileForm = (userData) => {
   popupEdit.close();
 };
 
+const submitAvatarForm = (avatarData) => {
+  const item = {
+    avatar: avatarData['avatarlink'],
+  };
+  api
+    .editAvatar(item)
+    .then(() => {
+      userInfo.setUserAvatar(item);
+    })
+    .catch((err) => alert(err));
+  popupAvatar.close();
+};
+
 // слушатель для кнопки редактирования
 navButton.addEventListener('click', () => {
   const formName = popupElementEdit.querySelector(config.formSelector).name;
@@ -77,17 +93,18 @@ addButton.addEventListener('click', () => {
 
 // функция отправки формы добавления карточки
 const submitImageFormHandler = (data) => {
-  // evt.preventDefault();
-  // const inputImageName = imageNameInput.value;
-  // const inputImageLink = imageLinkInput.value;
   const item = {
     name: data['imageName'],
     link: data['imagelink'],
   };
 
-  const card = createCard(item);
-  // prependImageCard(card);
-  cardsList.prependAddItem(card);
+  api
+    .createCard(item)
+    .then(() => {
+      const card = createCard(item);
+      cardsList.prependAddItem(card);
+    })
+    .catch((err) => alert(err));
   popupAddImage.close();
 };
 
@@ -142,6 +159,9 @@ popupEdit.setEventListeners();
 const popupAvatar = new PopupWithForm('.popup_type_avatar', submitAvatarForm);
 popupAvatar.setEventListeners();
 
+const popupTrash = new PopupWithDel('.popup_type_trash', submitCardTrash);
+popupTrash.setEventListeners();
+
 // слушатель для кнопки обновление аватара пользователя
 avatarButton.addEventListener('click', () => {
   const formName = popupElementAvatar.querySelector(config.formSelector).name;
@@ -150,16 +170,3 @@ avatarButton.addEventListener('click', () => {
   const userInfoForm = userInfo.getUserInfo();
   avatarInput.value = userInfoForm.avatar;
 });
-
-const submitAvatarForm = (avatarData) => {
-  const item = {
-    avatar: avatarData['avatarlink'],
-  };
-  api
-    .editAvatar(item)
-    .then(() => {
-      userInfo.setUserAvatar(item);
-    })
-    .catch((err) => alert(err));
-  popupAvatar.close();
-};

@@ -30,12 +30,14 @@ export const formValidators = {};
 // получаем элемент темплейт
 export const template = document.querySelector('#card');
 
-// // // 1 попап
+// 1 попап
 export const popupElementEdit = document.querySelector('.popup_type_edit');
 // 2 попап
 export const popupElementAdd = document.querySelector('.popup_type_add');
-// // 3 попап
+// 3 попап
 export const popupElementAvatar = document.querySelector('.popup_type_avatar');
+// 4 попап
+export const popupElementTrash = document.querySelector('.popup_type_trash');
 
 // форма попапа с редактированием профиля
 export const popupFormEdit = popupElementEdit.querySelector('.popup__info_form_profile');
@@ -52,6 +54,9 @@ export const cardAddButton = document.querySelector('.popup__button-card');
 
 // кнопка обновление аватара пользователя (3 попап)
 export const avatarButton = document.querySelector('.profile__avatar');
+
+// кнопка открытия 4 попапа (удаления карточки)
+export const cardTrashButton = document.querySelector('.card__trash');
 
 // секция с карточками
 export const cardsContainer = '.cards';

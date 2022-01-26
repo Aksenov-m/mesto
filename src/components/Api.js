@@ -40,14 +40,49 @@ export class Api {
   }
 
   // Редактирование аватара
-  editAvatar(user) {
-    return fetch(`${this._url}/users/me`, {
+  editAvatar(userAvatar) {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: user.avatar,
+        avatar: userAvatar.avatar,
       }),
     }).then(onError);
   }
-  // другие методы работы с API
+
+  // Добавление новой карточки
+  createCard(data) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      }),
+    }).then(onError);
+  }
+
+  // Удаление карточки
+  deleteCard(data) {
+    return fetch(`${this._url}/cards/${data._id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(onError);
+  }
+
+  // добавления лайка
+  likeCard(data) {
+    return fetch(`${this._url}/cards/${data._id}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    }).then(onError);
+  }
+
+  // удаление лайка
+  deleteLikeCard(data) {
+    return fetch(`${this._url}/cards/${data._id}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(onError);
+  }
 }
