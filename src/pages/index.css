@@ -47,5 +47,7 @@
 @import url(../blocks/popup/__link-error/popup__link-error.css);
 @import url(../blocks/form/__input/_type/form__input_type_error.css);
 @import url(../blocks/form/__input-error/_active/form__input-error_active.css);
-@import url(../blocks/card/__like-counter.css);
-@import url(../blocks/card/__likes.css);
+@import url(../blocks/card/__like-counter/card__like-counter.css);
+@import url(../blocks/card/__likes/card__likes.css);
+@import url(../blocks/popup/__button/_da.css);
+@import url(../blocks/popup/__title/_theme/popup__title_theme_trash.css);

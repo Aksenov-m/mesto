@@ -1,10 +1,12 @@
 export class Card {
-  constructor(data, cardTemplate, handleCardClick) {
+  constructor(data, cardTemplate, handleCardClick, onDeleteClick) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data._id;
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
+    this._onDeleteClick = onDeleteClick;
   }
   // здесь выполним все необходимые операции, чтобы вернуть разметку
   _getTemplate() {
@@ -34,7 +36,7 @@ export class Card {
     this._likeButton.classList.toggle('card__like-icon_active');
   }
 
-  _removeCard = () => {
+  removeCard = () => {
     this._element.remove();
     this._element = null;
   };
@@ -47,6 +49,8 @@ export class Card {
     //добавления лайка
     this._likeButton.addEventListener('click', () => this._toggleLike());
     // удаление карточки, кнопка удаления карточки
-    this._trash.addEventListener('click', this._removeCard);
+    // this._trash.addEventListener('click', this._removeCard);
+
+    this._trash.addEventListener('click', () => this._onDeleteClick(this._element, this._id));
   }
 }

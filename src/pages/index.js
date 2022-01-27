@@ -108,10 +108,24 @@ const submitImageFormHandler = (data) => {
   popupAddImage.close();
 };
 
+function onDeleteClick(data, cardId) {
+  popupTrash.open({ data, cardId });
+}
+
+const submitCardTrash = (data) => {
+  api
+    .deleteCard(data)
+    .then(() => {
+      data.removeCard();
+    })
+    .catch((err) => alert(err));
+  popupTrash.close();
+};
+
 // создания новой карточки
 function createCard(item) {
   // тут создаете карточку и возвращаете ее
-  const card = new Card(item, template, handleCardClick);
+  const card = new Card(item, template, handleCardClick, onDeleteClick);
   // Создаём карточку и возвращаем наружу
   return card.generateCard();
 }
