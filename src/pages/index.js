@@ -19,25 +19,36 @@ const api = new Api({
   },
 });
 
-api
-  .getInitialCards()
-  .then((data) => {
-    cardsList.renderItems(data);
-  })
-  .catch((err) => alert(err));
+api.getAllData().then(([data, user]) => {
+  cardsList.renderItems(data);
+  userInfo.setUserInfo({
+    name: user.name,
+    about: user.about,
+  });
+  userInfo.setUserAvatar({
+    avatar: user.avatar,
+  });
+});
 
-api
-  .getInitialUsers()
-  .then((user) => {
-    userInfo.setUserInfo({
-      name: user.name,
-      about: user.about,
-    });
-    userInfo.setUserAvatar({
-      avatar: user.avatar,
-    });
-  })
-  .catch((err) => alert(err));
+// api
+//   .getInitialCards()
+//   .then((data) => {
+//     cardsList.renderItems(data);
+//   })
+//   .catch((err) => alert(err));
+
+// api
+//   .getInitialUsers()
+//   .then((user) => {
+//     userInfo.setUserInfo({
+//       name: user.name,
+//       about: user.about,
+//     });
+//     userInfo.setUserAvatar({
+//       avatar: user.avatar,
+//     });
+//   })
+//   .catch((err) => alert(err));
 
 const userInfo = new UserInfo({
   name: formName,
@@ -98,34 +109,35 @@ const submitImageFormHandler = (data) => {
     link: data['imagelink'],
   };
 
-  api
-    .createCard(item)
-    .then(() => {
-      const card = createCard(item);
-      cardsList.prependAddItem(card);
-    })
-    .catch((err) => alert(err));
+  api.createCard(item).then(() => {
+    const card = createCard(item);
+    cardsList.prependAddItem(card);
+  });
+  // .catch((err) => console.log(err));
   popupAddImage.close();
 };
 
-function onDeleteClick(data, cardId) {
-  popupTrash.open({ data, cardId });
-}
+const onDeleteClick = (cardEelement) => {
+  popupTrash.open(cardEelement);
+};
 
-const submitCardTrash = (data) => {
+const submitCardTrash = (cardEelement) => {
+  debugger;
   api
-    .deleteCard(data)
+    .deleteCard(cardEelement)
     .then(() => {
-      data.removeCard();
+      debugger;
+      cardEelement.remove();
+      cardEelement = null;
     })
     .catch((err) => alert(err));
   popupTrash.close();
 };
 
 // создания новой карточки
-function createCard(item) {
+function createCard(item, user) {
   // тут создаете карточку и возвращаете ее
-  const card = new Card(item, template, handleCardClick, onDeleteClick);
+  const card = new Card(item, user, template, handleCardClick, onDeleteClick);
   // Создаём карточку и возвращаем наружу
   return card.generateCard();
 }
@@ -146,8 +158,8 @@ enableValidation(config);
 const cardsList = new Section(
   {
     // items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
+    renderer: (item, user) => {
+      const cardElement = createCard(item, user);
       cardsList.appendAddItem(cardElement);
     },
   },

@@ -12,8 +12,8 @@ export default class Section {
     this._container.append(element); //вставляем в конец
   }
   renderItems(items) {
-    items.forEach((item) => {
-      this._renderer(item); // вызываем renderer, передав item
+    items.forEach((item, user) => {
+      this._renderer(item, user); // вызываем renderer, передав item
     });
   }
 }

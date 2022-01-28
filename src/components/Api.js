@@ -1,3 +1,5 @@
+import { Promise } from 'core-js';
+
 const onError = (res) => {
   if (res.ok) {
     return res.json();
@@ -50,6 +52,9 @@ export class Api {
     }).then(onError);
   }
 
+  getAllData() {
+    return Promise.all([this.getInitialCards(), this.getInitialUsers()]);
+  }
   // Добавление новой карточки
   createCard(data) {
     return fetch(`${this._url}/cards`, {
