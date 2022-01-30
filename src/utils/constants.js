@@ -1,5 +1,7 @@
 export const formValidators = {};
 
+// export let userId = null;
+
 // export const initialCards = [
 //   {
 //     name: 'Архыз',

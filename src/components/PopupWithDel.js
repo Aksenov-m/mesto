@@ -10,13 +10,14 @@ export default class PopupWithDel extends Popup {
     super.setEventListeners();
     this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._callBackSubmitForm(this._delElement);
+      this._callBackSubmitForm(this._data, this._delElement);
     });
   }
 
-  open(data) {
+  open(data, element) {
     super.open();
-    this._delElement = data;
+    this._delElement = element;
+    this._data = data;
   }
 
   close() {

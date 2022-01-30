@@ -1,14 +1,15 @@
 export class Card {
-  constructor(data, user, cardTemplate, handleCardClick, onDeleteClick) {
+  constructor(data, userId, cardTemplate, handleCardClick, handleDeleteClick, { handleLikeClick }) {
     this._data = data;
-    this._user = user;
+    this._userId = userId;
     this._name = data.name;
     this._link = data.link;
-    this._likes = data.likes;
+    this._likes = data.likes || [];
     this._id = data._id;
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
-    this._onDeleteClick = onDeleteClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
   // здесь выполним все необходимые операции, чтобы вернуть разметку
   _getTemplate() {
@@ -27,35 +28,48 @@ export class Card {
     // Добавим данные
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
-    this._likeСounter.textContent = this._likes.length;
+
+    // this._likeСounter.textContent = this._likes.length;
     this._element.querySelector('.card__title').textContent = this._name;
     this._setEventListeners();
-    this._updateLikesNumber();
+    if (!this._checOwnerCard()) {
+      this._removeTrash();
+    }
+    this.updateLikesNumber(this._data);
     // Вернём элемент наружу
     return this._element;
   }
-  _isLiked() {
-    if (this._data.likes.some((like) => like._id === this._user._id)) return true;
+
+  isLiked(data) {
+    this._data = data;
+    if (data.likes.some((user) => user._id === this._userId)) return true;
     else return false;
   }
 
-  _updateLikesNumber() {
-    this._likeСounter.textContent = this._data.likes.length;
-    if (this._isLiked()) {
-      this.this._likeButton.classList.add('card__like-icon_active');
+  updateLikesNumber(data) {
+    this._likeСounter.textContent = data.likes.length;
+    if (this.isLiked(data)) {
+      this._likeButton.classList.add('card__like-icon_active');
     } else {
-      this.this._likeButton.classList.remove('card__like-icon_active');
+      this._likeButton.classList.remove('card__like-icon_active');
     }
+  }
+
+  _checOwnerCard() {
+    if (this._userId === this._data.owner._id) {
+      return true;
+    }
+    return false;
   }
 
   // _toggleLike() {
   //   this._likeButton.classList.toggle('card__like-icon_active');
   // }
 
-  // removeCard = () => {
-  //   this._element.remove();
-  //   this._element = null;
-  // };
+  _removeTrash = () => {
+    this._trash.remove();
+    this._trash = null;
+  };
 
   _setEventListeners() {
     this._cardImage.addEventListener('click', () => {
@@ -63,10 +77,10 @@ export class Card {
       this._handleCardClick(this._name, this._link);
     });
     //добавления лайка
-    this._likeButton.addEventListener('click', () => this._toggleLike());
-    // удаление карточки, кнопка удаления карточки
-    // this._trash.addEventListener('click', this._removeCard);
+    this._likeButton.addEventListener('click', () => this._handleLikeClick(this._data));
 
-    this._trash.addEventListener('click', () => this._onDeleteClick(this._data, this._element));
+    // this._trash.addEventListener('click', this._removeCard);
+    // кнопка удаления карточки
+    this._trash.addEventListener('click', () => this._handleDeleteClick(this._data, this._element));
   }
 }

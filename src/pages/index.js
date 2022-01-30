@@ -18,9 +18,14 @@ const api = new Api({
     'Content-Type': 'application/json',
   },
 });
+let userId = null;
 
 api.getAllData().then(([data, user]) => {
-  cardsList.renderItems(data);
+  // const user = {};
+  // // userDataId = Object.assign({}, user);
+  // user = userDataId;
+  userId = user._id;
+  cardsList.renderItems(data, userId);
   userInfo.setUserInfo({
     name: user.name,
     about: user.about,
@@ -62,26 +67,35 @@ const submitProfileForm = (userData) => {
     name: userData['userName'],
     about: userData['userJob'],
   };
+  popupEdit.renderLoading(true);
   api
     .editUsers(item)
     .then(() => {
       userInfo.setUserInfo(item);
     })
-    .catch((err) => alert(err));
-  popupEdit.close();
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupEdit.renderLoading(false);
+      setTimeout(popupEdit.close, 5000);
+    });
+  // setTimeout(popupEdit.close, 3000);
 };
 
 const submitAvatarForm = (avatarData) => {
   const item = {
     avatar: avatarData['avatarlink'],
   };
+  popupAvatar.renderLoading(true);
   api
     .editAvatar(item)
     .then(() => {
       userInfo.setUserAvatar(item);
     })
-    .catch((err) => alert(err));
-  popupAvatar.close();
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupAvatar.renderLoading(false);
+      setTimeout(popupAvatar.close, 5000);
+    });
 };
 
 // слушатель для кнопки редактирования
@@ -107,37 +121,76 @@ const submitImageFormHandler = (data) => {
   const item = {
     name: data['imageName'],
     link: data['imagelink'],
+    _id: userId,
   };
 
-  api.createCard(item).then(() => {
-    const card = createCard(item);
-    cardsList.prependAddItem(card);
-  });
-  // .catch((err) => console.log(err));
+  // Добавление новой карточки
+  api
+    .createCard(item)
+    .then((data) => {
+      const card = createCard(data, userId);
+      cardsList.prependAddItem(card);
+    })
+    .catch((err) => alert(err));
   popupAddImage.close();
 };
 
-const onDeleteClick = (cardEelement) => {
-  popupTrash.open(cardEelement);
+const handleDeleteClick = (data, cardElement) => {
+  popupTrash.open(data, cardElement);
 };
 
-const submitCardTrash = (cardEelement) => {
-  debugger;
+// const handleLikeClick = (data) => {
+//   const card = new Card (data);
+//   if (card.isLiked()) {
+//     api.deleteLikeCard(data)
+//       .then(() => {
+//         card.updateLikesNumber()
+//       })
+//       .catch((err) => alert(err));
+//   } else {
+//     api.likeCard(cardId)
+//       .then((data) => {
+//         card.updateLikesNumber(data)
+//       })
+//       .catch((error) => {
+//         console.log(error)
+//       })
+//   }
+// },
+
+const submitCardTrash = (data, cardElement) => {
   api
-    .deleteCard(cardEelement)
+    .deleteCard(data)
     .then(() => {
-      debugger;
-      cardEelement.remove();
-      cardEelement = null;
+      cardElement.remove();
+      cardElement = null;
     })
     .catch((err) => alert(err));
   popupTrash.close();
 };
 
-// создания новой карточки
-function createCard(item, user) {
+// // создания новой карточки
+function createCard(item, userId) {
   // тут создаете карточку и возвращаете ее
-  const card = new Card(item, user, template, handleCardClick, onDeleteClick);
+  const card = new Card(item, userId, template, handleCardClick, handleDeleteClick, {
+    handleLikeClick: (item) => {
+      if (card.isLiked(item)) {
+        api
+          .deleteLikeCard(item)
+          .then((item) => {
+            card.updateLikesNumber(item);
+          })
+          .catch((err) => alert(err));
+      } else {
+        api
+          .likeCard(item)
+          .then((item) => {
+            card.updateLikesNumber(item);
+          })
+          .catch((err) => alert(err));
+      }
+    },
+  });
   // Создаём карточку и возвращаем наружу
   return card.generateCard();
 }
@@ -158,8 +211,8 @@ enableValidation(config);
 const cardsList = new Section(
   {
     // items: initialCards,
-    renderer: (item, user) => {
-      const cardElement = createCard(item, user);
+    renderer: (item, userId) => {
+      const cardElement = createCard(item, userId);
       cardsList.appendAddItem(cardElement);
     },
   },
@@ -196,3 +249,14 @@ avatarButton.addEventListener('click', () => {
   const userInfoForm = userInfo.getUserInfo();
   avatarInput.value = userInfoForm.avatar;
 });
+
+// function renderLoading(isLoading){
+//   if (isLoading) {
+//      spinner.classList.add('spinner_visible');
+//     content.classList.add('content_hidden');
+
+//     } else {
+//        spinner.classList.remove('spinner_visible');
+//       content.classList.remove('content_hidden');
+//     }
+//   }
