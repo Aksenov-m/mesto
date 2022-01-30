@@ -35,26 +35,6 @@ api.getAllData().then(([data, user]) => {
   });
 });
 
-// api
-//   .getInitialCards()
-//   .then((data) => {
-//     cardsList.renderItems(data);
-//   })
-//   .catch((err) => alert(err));
-
-// api
-//   .getInitialUsers()
-//   .then((user) => {
-//     userInfo.setUserInfo({
-//       name: user.name,
-//       about: user.about,
-//     });
-//     userInfo.setUserAvatar({
-//       avatar: user.avatar,
-//     });
-//   })
-//   .catch((err) => alert(err));
-
 const userInfo = new UserInfo({
   name: formName,
   about: formJob,
