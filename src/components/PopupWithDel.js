@@ -19,8 +19,4 @@ export default class PopupWithDel extends Popup {
     this._delElement = element;
     this._data = data;
   }
-
-  close() {
-    super.close();
-  }
 }

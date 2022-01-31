@@ -4,12 +4,8 @@ export class FormValidator {
     this._form = form;
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    this._inputList = Array.from(
-      this._form.querySelectorAll(this._config.inputSelector)
-    );
-    this._submitButton = this._form.querySelector(
-      this._config.submitButtonSelector
-    );
+    this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+    this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
   }
   _showInputError(inputElement) {
     // Находим элемент ошибки внутри самой функции
@@ -45,10 +41,7 @@ export class FormValidator {
     // Если форма невалидна, то присваиваем свойству disabled кнопки значение true
     this._submitButton.disabled = !isFormValid;
     // Если форма невалидна, добавляем кнопке класс
-    this._submitButton.classList.toggle(
-      this._config.inactiveButtonClass,
-      !isFormValid
-    );
+    this._submitButton.classList.toggle(this._config.inactiveButtonClass, !isFormValid);
   };
 
   _setEventListeners = () => {

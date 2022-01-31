@@ -1,7 +1,3 @@
-export const formValidators = {};
-
-// export let userId = null;
-
 // получаем элемент темплейт
 export const template = document.querySelector('#card');
 
@@ -15,10 +11,11 @@ export const popupElementAvatar = document.querySelector('.popup_type_avatar');
 export const popupElementTrash = document.querySelector('.popup_type_trash');
 
 // форма попапа с редактированием профиля
-export const popupFormEdit = popupElementEdit.querySelector('.popup__info_form_profile');
+export const popupFormEdit = popupElementEdit.querySelector('.popup__info');
 // форма попапа с добавлением карточки
 export const popupFormAdd = popupElementAdd.querySelector('.popup__info');
-
+// форма попапа с добавлением аватара
+export const popupFormAvatar = popupElementAvatar.querySelector('.popup__info');
 // кнопка открытия 1 попапа
 export const navButton = document.querySelector('.profile__edit-button');
 // кнопка открытия 2 попапа
@@ -49,12 +46,6 @@ export const avatarInput = document.querySelector('.popup__input_string_avatar-l
 
 export const formName = document.querySelector('.profile__name');
 export const formJob = document.querySelector('.profile__job');
-
-// export const popupImage = popupElementImage.querySelector('.popup__image');
-// export const popupTitle = popupElementImage.querySelector('.popup__photo-title');
-
-// открытый попап
-// const openedPopup = document.querySelector('.popup_opened');
 
 // Все попапы в проекте
 export const popups = document.querySelectorAll('.popup');
