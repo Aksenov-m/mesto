@@ -20,6 +20,14 @@ const api = new Api({
 });
 let userId = null;
 
+// Все поправил. Очистка форм работает, я посмотрел у себя во всех браузеров очищает работает.
+// Посмотри пожалуйста где ошибка, я не нашел причину
+
+// валидация
+const validatorFormAvatar = new FormValidator(config, popupFormAvatar);
+const validatorFormUser = new FormValidator(config, popupFormEdit);
+const validatorFormCard = new FormValidator(config, popupFormAdd);
+
 api.getAllData().then(([data, user]) => {
   userId = user._id;
   cardsList.renderItems(data, userId);
@@ -46,10 +54,8 @@ const submitProfileForm = (userData) => {
   popupEdit.renderLoading(true);
   api
     .editUsers(item)
-    .then(() => {
-      userInfo.setUserInfo(item);
-    })
-    .then(() => {
+    .then((data) => {
+      userInfo.setUserInfo(data);
       setTimeout(popupEdit.close, 5000);
     })
     .catch((err) => alert(err))
@@ -65,10 +71,8 @@ const submitAvatarForm = (avatarData) => {
   popupAvatar.renderLoading(true);
   api
     .editAvatar(item)
-    .then(() => {
-      userInfo.setUserAvatar(item);
-    })
-    .then(() => {
+    .then((data) => {
+      userInfo.setUserAvatar(data);
       setTimeout(popupAvatar.close, 5000);
     })
     .catch((err) => alert(err))
@@ -79,7 +83,6 @@ const submitAvatarForm = (avatarData) => {
 
 // слушатель для кнопки редактирования юзера
 navButton.addEventListener('click', () => {
-  const validatorFormUser = new FormValidator(config, popupFormEdit);
   validatorFormUser.enableValidation();
   validatorFormUser.resetValidation();
   popupEdit.open();
@@ -90,7 +93,6 @@ navButton.addEventListener('click', () => {
 
 // слушатель для кнопки добавления карт
 addButton.addEventListener('click', () => {
-  const validatorFormCard = new FormValidator(config, popupFormAdd);
   validatorFormCard.enableValidation();
   validatorFormCard.resetValidation();
   popupAddImage.open();
@@ -192,7 +194,6 @@ popupTrash.setEventListeners();
 
 // слушатель для кнопки обновление аватара пользователя
 avatarButton.addEventListener('click', () => {
-  const validatorFormAvatar = new FormValidator(config, popupFormAvatar);
   validatorFormAvatar.enableValidation();
   validatorFormAvatar.resetValidation();
   popupAvatar.open();

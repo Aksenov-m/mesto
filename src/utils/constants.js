@@ -25,7 +25,7 @@ export const addButton = document.querySelector('.profile__add-button');
 export const cardAddButton = document.querySelector('.popup__button-card');
 
 // кнопка обновление аватара пользователя (3 попап)
-export const avatarButton = document.querySelector('.profile__avatar');
+export const avatarButton = document.querySelector('.profile__avatar-icon');
 
 // кнопка открытия 4 попапа (удаления карточки)
 export const cardTrashButton = document.querySelector('.card__trash');
